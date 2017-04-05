@@ -1,2 +1,0 @@
-#!/bin/bash
-ledcolor -c red -d 2 & ledcolor -c blue -d & ledcolor -c green -d 2 & move -o head & move -o jaw & move -o eyes

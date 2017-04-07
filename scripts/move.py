@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 import sys, getopt
 from time import sleep
-#import RPi.GPIO as GPIO
-from EmulatorGUI import GPIO
+import RPi.GPIO as GPIO
+#from EmulatorGUI import GPIO
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)

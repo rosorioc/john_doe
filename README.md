@@ -1,6 +1,7 @@
 # john_doe
 
-# directory structur
+directory structur:
+
 ledcolor -> /home/pi/git/john_doe.git/scripts/ledcolor.py
 
 move     -> /home/pi/git/john_doe.git/scripts/move.py

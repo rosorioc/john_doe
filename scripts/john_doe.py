@@ -310,7 +310,6 @@ def blink(color):
 
     duration=2
 
-    gpio_color = gpio_green
     GPIO.setup(gpio_color,GPIO.OUT)
     
     print ("LED", color, "on")

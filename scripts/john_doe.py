@@ -2,8 +2,8 @@
 import sys, getopt
 import time
 from time import sleep
-#import RPi.GPIO as GPIO
-from EmulatorGUI import GPIO
+import RPi.GPIO as GPIO
+#from EmulatorGUI import GPIO
 from pyatspi import action
 
 GPIO.setmode(GPIO.BCM)

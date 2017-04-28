@@ -1,8 +1,10 @@
 #!/usr/bin/python3
 import sys, getopt
+import time
 from time import sleep
-import RPi.GPIO as GPIO
-#from EmulatorGUI import GPIO
+#import RPi.GPIO as GPIO
+from EmulatorGUI import GPIO
+from pyatspi import action
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
@@ -12,7 +14,7 @@ def gpio_steps(a,b,c,d,time):
     # Verwendete Pins(GPIP) am Rapberry Pi
     gpio_steps.time=0.0010
     gpio_steps.A=a
-    gpio_steps.B=b
+    gpio_steps.B=b 
     gpio_steps.C=c
     gpio_steps.D=d
        
@@ -85,160 +87,289 @@ def Step8():
     sleep (gpio_steps.time)
     GPIO.output(gpio_steps.D, False)
     GPIO.output(gpio_steps.A, False)
- 
+
+
+def move_head():
+    # Verwendete Pins(GPIP) am Rapberry Pi
+    A=22
+    B=23
+    C=24
+    D=25
+    time = 0.0010
+  
+    gpio_steps(A,B,C,D,2) 
+    print ('move head...')
+     
+    # Volle Umdrehung
+    # da wir 4 magneten haben, brauchen wir 8 Schritte
+    # 512 schritte sind eine 45 grad umdrehung;   512/8=64
+    # 1024 schritte sind eine 90 grad umdrehung;   1024/8=128
+    # 45vor        
+    for i in range (64):  
+        Step1()
+        Step2()
+        Step3()
+        Step4()
+        Step5()
+        Step6()
+        Step7()
+        Step8()  
+        print (i)
+        
+    # 90zurueck
+    for i in range (128):    
+        Step8()  
+        Step7()
+        Step6()
+        Step5()
+        Step4()
+        Step3()
+        Step2()
+        Step1()
+        print (i)
+    # 45vor
+    for i in range (64):
+        Step1()
+        Step2()
+        Step3()
+        Step4()
+        Step5()
+        Step6()
+        Step7()
+        Step8()
+        print (i)
+        
+    GPIO.cleanup()
+
+
+def move_eyes():
+    # Verwendete Pins(GPIP) am Rapberry Pi
+    A=6
+    B=12
+    C=13
+    D=5
+    time = 0.0010
+      
+    gpio_steps(A,B,C,D,2) 
+    print ('move eyes...')
+
+    # Volle Umdrehung
+    # da wir 4 magneten haben, brauchen wir 8 Schritte
+    # 512 schritte sind eine 45 grad umdrehung;   512/8=64
+    # 45vor
+    for i in range (64):
+       Step1()
+       Step2()
+       Step3()
+       Step4()
+       Step5()
+       Step6()
+       Step7()
+       Step8()
+       print (i)
+       # 90zurueck
+    for i in range (128):
+        Step8()
+        Step7()
+        Step6()
+        Step5()
+        Step4()
+        Step3()
+        Step2()
+        Step1()
+        print (i)
+    # 45vor
+    for i in range (64):
+        Step1()
+        Step2()
+        Step3()
+        Step4()
+        Step5()
+        Step6()
+        Step7()
+        Step8()
+        print (i)
+          
+    GPIO.cleanup()
+
+
+def move_jaw():
+    # Verwendete Pins(GPIP) am Rapberry Pi
+    A=20
+    B=21
+    C=19
+    D=26
+    time = 0.0010
+    
+    gpio_steps(A,B,C,D,2) 
+    print ('move jaw...')
+    
+    # Volle Umdrehung
+    # da wir 4 magneten haben, brauchen wir 8 Schritte
+    # 512 schritte sind eine 45 grad umdrehung;   512/8=64
+    # 90vor
+    for i in range (128):
+        Step1()
+        Step2()
+        Step3()
+        Step4()
+        Step5()
+        Step6()
+        Step7()
+        Step8()
+        print (i)
+    # 90zurueck
+    for i in range (128):
+        Step8()
+        Step7()
+        Step6()
+        Step5()
+        Step4()
+        Step3()
+        Step2()
+        Step1()
+        print (i)
+
+    GPIO.cleanup()
+
+
+def blink_blue():
+    # Verwendete Pins(GPIP) am Rapberry Pi
+    gpio_blue=27
+    gpio_green=18
+    gpio_red=17
+    duration=2
+    color="blue"
+
+    gpio_color = gpio_blue
+    GPIO.setup(gpio_color,GPIO.OUT)
+    
+    print ("LED", color, "on")
+    GPIO.output(gpio_color,GPIO.HIGH)
+    time.sleep(float(duration))
+   
+    print ("LED", color, "off")
+    GPIO.output(gpio_color,GPIO.LOW)
+
+    GPIO.cleanup()
+
+
+def blink_green():
+    # Verwendete Pins(GPIP) am Rapberry Pi
+    gpio_blue=27
+    gpio_green=18
+    gpio_red=17
+    duration=2
+    color="green"
+
+    gpio_color = gpio_green
+    GPIO.setup(gpio_color,GPIO.OUT)
+    
+    print ("LED", color, "on")
+    GPIO.output(gpio_color,GPIO.HIGH)
+    time.sleep(float(duration))
+   
+    print ("LED", color, "off")
+    GPIO.output(gpio_color,GPIO.LOW)
+
+    GPIO.cleanup()
+
+
+def blink_red():
+    # Verwendete Pins(GPIP) am Rapberry Pi
+    gpio_blue=27
+    gpio_green=18
+    gpio_red=17
+    duration=2
+    color="red"
+
+    gpio_color = gpio_red
+    GPIO.setup(gpio_color,GPIO.OUT)
+    
+    print ("LED", color, "on")
+    GPIO.output(gpio_color,GPIO.HIGH)
+    time.sleep(float(duration))
+   
+    print ("LED", color, "off")
+    GPIO.output(gpio_color,GPIO.LOW)
+    
+    GPIO.cleanup()
+    
+    
+def blink(color):
+    # Verwendete Pins(GPIP) am Rapberry Pi
+    if color == 'red':
+            #blink_red()
+       blink(color)
+    elif color == 'green':          
+       blink_green()
+    elif color == 'blue':    
+        blink_blue()
+    gpio_blue=27
+    gpio_green=18
+    gpio_red=17
+    duration=2
+    color=color
+
+    gpio_color = gpio_green
+    GPIO.setup(gpio_color,GPIO.OUT)
+    
+    print ("LED", color, "on")
+    GPIO.output(gpio_color,GPIO.HIGH)
+    time.sleep(float(duration))
+   
+    print ("LED", color, "off")
+    GPIO.output(gpio_color,GPIO.LOW)
+
+    GPIO.cleanup()
+    
 
 ###########################################
 ############### MAIN CLASS ############### 
 ###########################################
 def main(argv):
-   try:
-      opts, args = getopt.getopt(argv,"ho:",["organ="])
-   except getopt.GetoptError:
-      print ('motor_head.py -o <organ>')
-      sys.exit(2)
-   for opt, arg in opts:
-      if opt == '-h':
-         print ('motor_head.py -o <organ>')
-         sys.exit()
-      elif opt in ("-o", "--organ"):
-         organ = arg
+    try:
+        opts, args = getopt.getopt(argv,"ha:o:c:d:",["action=:organ=:color=:duration="])
+    except getopt.GetoptError:
+        print ('john_doe -a <action> [-o <organ>]')
+        sys.exit(2)
+    for opt, arg in opts:
+        if opt == '-h':
+            print ('john_doe -a <action> [-o <organ>]')
+            sys.exit()
+        elif opt in ("-a", "--action"):
+            action = arg  
+        elif opt in ("-o", "--organ"):
+            organ = arg
+        elif opt in ("-c", "--color"):
+            color = arg
+        elif opt in ("-d", "--duration"):
+            duration = arg
 
-   if organ == 'head':
-      # Verwendete Pins(GPIP) am Rapberry Pi
-      A=22
-      B=23
-      C=24
-      D=25
-      time = 0.0010
+    if action == 'move':
+        if organ == 'head':          
+            move_head()
+        elif organ == 'eyes':
+            move_eyes()
+        elif organ == 'jaw':
+            move_jaw()
+    elif action == 'blink':
+        if color == 'red':
+            #blink_red()
+            blink(color)
+        elif color == 'green':          
+            blink_green()
+        elif color == 'blue':    
+            blink_blue()
       
-      gpio_steps(A,B,C,D,2) 
-      print ('move head...')
-         
-      # Volle Umdrehung
-      # da wir 4 magneten haben, brauchen wir 8 Schritte
-      # 512 schritte sind eine 45 grad umdrehung;   512/8=64
-      # 1024 schritte sind eine 90 grad umdrehung;   1024/8=128
-      # 45vor      
-      for i in range (64):  
-          Step1()
-          Step2()
-          Step3()
-          Step4()
-          Step5()
-          Step6()
-          Step7()
-          Step8()  
-          print (i)
-      # 90zurueck
-      for i in range (128):    
-          Step8()  
-          Step7()
-          Step6()
-          Step5()
-          Step4()
-          Step3()
-          Step2()
-          Step1()
-          print (i)
-      # 45vor
-      for i in range (64):
-          Step1()
-          Step2()
-          Step3()
-          Step4()
-          Step5()
-          Step6()
-          Step7()
-          Step8()
-          print (i)
-   elif organ == 'eyes':
-      # Verwendete Pins(GPIP) am Rapberry Pi
-      A=6
-      B=12
-      C=13
-      D=5
-      time = 0.0010
-      
-      gpio_steps(A,B,C,D,2) 
-      print ('move eyes...')
 
-      # Volle Umdrehung
-      # da wir 4 magneten haben, brauchen wir 8 Schritte
-      # 512 schritte sind eine 45 grad umdrehung;   512/8=64
-      # 45vor
-      for i in range (64):
-          Step1()
-          Step2()
-          Step3()
-          Step4()
-          Step5()
-          Step6()
-          Step7()
-          Step8()
-          print (i)
-      # 90zurueck
-      for i in range (128):
-          Step8()
-          Step7()
-          Step6()
-          Step5()
-          Step4()
-          Step3()
-          Step2()
-          Step1()
-          print (i)
-      # 45vor
-      for i in range (64):
-          Step1()
-          Step2()
-          Step3()
-          Step4()
-          Step5()
-          Step6()
-          Step7()
-          Step8()
-          print (i)
-          
-      GPIO.cleanup()
-    
-   elif organ == 'jaw':
-      # Verwendete Pins(GPIP) am Rapberry Pi
-      A=20
-      B=21
-      C=19
-      D=26
-      time = 0.0010
 
-      gpio_steps(A,B,C,D,2) 
-      print ('move jaw...')
+    elif action == 'diagnostic':
+        move_head()
+        move_eyes()
+        move_jaw()
 
-      # Volle Umdrehung
-      # da wir 4 magneten haben, brauchen wir 8 Schritte
-      # 512 schritte sind eine 45 grad umdrehung;   512/8=64
-      # 90vor
-      for i in range (128):
-          Step1()
-          Step2()
-          Step3()
-          Step4()
-          Step5()
-          Step6()
-          Step7()
-          Step8()
-          print (i)
-      # 90zurueck
-      for i in range (128):
-          Step8()
-          Step7()
-          Step6()
-          Step5()
-          Step4()
-          Step3()
-          Step2()
-          Step1()
-          print (i)
 
-      GPIO.cleanup()
 
 if __name__ == "__main__":
    main(sys.argv[1:])

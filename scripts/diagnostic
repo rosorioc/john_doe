@@ -1,0 +1,15 @@
+#!/bin/bash
+john_doe -a blink -c red
+sleep 1
+john_doe -a blink -c green
+sleep 1
+john_doe -a blink -c blue
+sleep 1
+john_doe -a move -o head
+sleep 1
+john_doe -a move -o jaw
+sleep 1
+john_doe -a move -o eyes
+
+
+#john_doe -a blink -c red & john_doe -a blink -c green & john_doe -a blink -c blue & john_doe -a move -o head & john_doe -a move -o jaw & john_doe -a move -o eyes

@@ -233,69 +233,6 @@ def move_jaw():
     GPIO.cleanup()
 
 
-def blink_blue():
-    # Verwendete Pins(GPIP) am Rapberry Pi
-    gpio_blue=27
-    gpio_green=18
-    gpio_red=17
-    duration=2
-    color="blue"
-
-    gpio_color = gpio_blue
-    GPIO.setup(gpio_color,GPIO.OUT)
-    
-    print ("LED", color, "on")
-    GPIO.output(gpio_color,GPIO.HIGH)
-    time.sleep(float(duration))
-   
-    print ("LED", color, "off")
-    GPIO.output(gpio_color,GPIO.LOW)
-
-    GPIO.cleanup()
-
-
-def blink_green():
-    # Verwendete Pins(GPIP) am Rapberry Pi
-    gpio_blue=27
-    gpio_green=18
-    gpio_red=17
-    duration=2
-    color="green"
-
-    gpio_color = gpio_green
-    GPIO.setup(gpio_color,GPIO.OUT)
-    
-    print ("LED", color, "on")
-    GPIO.output(gpio_color,GPIO.HIGH)
-    time.sleep(float(duration))
-   
-    print ("LED", color, "off")
-    GPIO.output(gpio_color,GPIO.LOW)
-
-    GPIO.cleanup()
-
-
-def blink_red():
-    # Verwendete Pins(GPIP) am Rapberry Pi
-    gpio_blue=27
-    gpio_green=18
-    gpio_red=17
-    duration=2
-    color="red"
-
-    gpio_color = gpio_red
-    GPIO.setup(gpio_color,GPIO.OUT)
-    
-    print ("LED", color, "on")
-    GPIO.output(gpio_color,GPIO.HIGH)
-    time.sleep(float(duration))
-   
-    print ("LED", color, "off")
-    GPIO.output(gpio_color,GPIO.LOW)
-    
-    GPIO.cleanup()
-    
-    
 def blink(color):
     # Verwendete Pins(GPIP) am Rapberry Pi
     if color == 'red':

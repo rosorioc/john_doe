@@ -299,17 +299,16 @@ def blink_red():
 def blink(color):
     # Verwendete Pins(GPIP) am Rapberry Pi
     if color == 'red':
-            #blink_red()
-       blink(color)
+       #gpio_red=17
+       gpio_color=17
     elif color == 'green':          
-       blink_green()
+       #gpio_green=18
+       gpio_color=18
     elif color == 'blue':    
-        blink_blue()
-    gpio_blue=27
-    gpio_green=18
-    gpio_red=17
+       #gpio_blue=27
+       gpio_color=27
+
     duration=2
-    color=color
 
     gpio_color = gpio_green
     GPIO.setup(gpio_color,GPIO.OUT)
@@ -355,12 +354,11 @@ def main(argv):
             move_jaw()
     elif action == 'blink':
         if color == 'red':
-            #blink_red()
             blink(color)
         elif color == 'green':          
-            blink_green()
+            blink(color)
         elif color == 'blue':    
-            blink_blue()
+            blink(color)
       
 
 

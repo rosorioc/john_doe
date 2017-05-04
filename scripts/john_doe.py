@@ -4,7 +4,7 @@ import time
 from time import sleep
 import RPi.GPIO as GPIO
 #from EmulatorGUI import GPIO
-#from pyatspi import action
+##from pyatspi import action
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)

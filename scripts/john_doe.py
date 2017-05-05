@@ -1,10 +1,20 @@
 #!/usr/bin/python3
-import sys, getopt
+import sys, os, getopt
+import platform
 import time
 from time import sleep
-import RPi.GPIO as GPIO
-#from EmulatorGUI import GPIO
-##from pyatspi import action
+
+
+print (platform.architecture)
+
+if os.uname()[4][:3] == 'arm':
+    print ('pi')
+    import RPi.GPIO as GPIO
+else:
+    print ('not pi')
+    emulatorgui_path = os.path.abspath(os.path.join('..', 'emulatorgui'))
+    sys.path.append(emulatorgui_path)
+    from EmulatorGUI import GPIO
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
